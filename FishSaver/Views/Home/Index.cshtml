@@ -1,0 +1,60 @@
+﻿@model FishSaver.Models.Tank
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Fishsaver.net</h1>
+  
+</div>
+
+<div class="row">
+ <div class="col-lg-4">
+     <h2>Add Fish</h2>
+
+     <h3>Name:</h3><form action="/Home/AddFish" method="get">
+    <input type="text" name="name" />
+     <h3>Type:</h3>
+        <select name="type">
+            <option>Goldfish</option>
+            <option>Angelfish</option>
+            <option>Babelfish</option>
+        </select>
+
+    <input type="submit" value="Submit" />
+</form>
+ </div>
+    <div class="col-lg-4">
+        <h2>Fish in Tank</h2>
+        @if (Model != null)
+        {
+            foreach (var item in Model.FishInTank)
+            {
+                <h3>Name: </h3>
+                @Html.DisplayFor(modelItem => item.Name)
+                <h3>Type: </h3>
+                @Html.DisplayFor(modelItem => item.Type)
+            }
+        }
+    </div>
+
+    <div class="col-lg-4">
+        <h2>Amount to feed</h2>
+@if (Model != null)
+{
+    <h3>Please Feed: </h3>
+    @Model.Feed();
+}    
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-4">
+        @using (Html.BeginForm("ExportToXML", "Home"))
+        {
+
+            <input type="submit" value="Export" />
+
+        }  
+    </div>
+    </div>
